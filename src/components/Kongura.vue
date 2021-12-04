@@ -1,6 +1,8 @@
 <template>
-  <div class="hello">
-      Daniel is Gay - コングラ
+  <div class="maincontent">
+      <p class="bigtext">コングラ</p>
+      <p class="smoltext">Your request has been submitted!</p>
+      <button class="smolbtn">Back to Dashboard</button>
   </div>
 </template>
 
@@ -12,18 +14,31 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+button{
+  color: #2c3e50;
+  border: none;
+  background: none;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+button:active{
+  color: cadetblue;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.maincontent{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%
 }
-a {
-  color: #42b983;
+.bigtext{
+  font-size: 140px;
+  font-style: italic;
+  margin: 0;
+}
+.smoltext{
+  margin: 0;
+  font-size: 26px;
+}
+.smolbtn{
+  margin-top: 8%;
+  font-size: 24px;
 }
 </style>

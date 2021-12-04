@@ -1,7 +1,8 @@
 <template>
   <div class="header">
-    <h2 class="logo headertext">タコヤキ</h2>
-    <p class="headertext">BY からつばLABS</p>
+    <h2 class="logo headertext link">タコヤキ</h2>
+    <p class="headertext marginfree">BY</p>
+    <a class="headertext link" href="https://github.com/KaratsubaLabs" target="_blank">からつばLABS</a>
   </div>
   <router-view />
 </template>
@@ -17,14 +18,23 @@
 .header {
   width: 100%;
   text-align: left;
-  vertical-align: middle;
 }
 .headertext {
   margin: 0 6px 0 6px;
   display: inline-flex;
   vertical-align: middle;
 }
-p.headertext{
+a.headertext, p.headertext{
   color: lightslategrey;
+}
+.link{
+  cursor: default;
+  text-decoration: none;
+}
+.link:active{
+  color: cadetblue;
+}
+.marginfree{
+  margin-right: 0px;
 }
 </style>
