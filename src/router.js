@@ -18,6 +18,11 @@ const routes = [
         path: '/kongura',
         name: 'Kongura',
         component: Kongura,
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'RedirectToDashboard',
+        redirect: '/dashboard'
     }
 ]
 

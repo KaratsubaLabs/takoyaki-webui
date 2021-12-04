@@ -2,7 +2,7 @@
   <div class="maincontent">
       <p class="bigtext">コングラ</p>
       <p class="smoltext">Your request has been submitted!</p>
-      <button class="smolbtn">Back to Dashboard</button>
+      <button class="smolbtn"><router-link class="link" to="/dashboard">Back to Dashboard</router-link></button>
   </div>
 </template>
 
@@ -40,5 +40,9 @@ button:active{
 .smolbtn{
   margin-top: 8%;
   font-size: 24px;
+}
+.link{
+  text-decoration: none;
+  color: inherit;
 }
 </style>

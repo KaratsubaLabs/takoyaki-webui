@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <h2 class="logo headertext link">タコヤキ</h2>
+    <h2 class="logo headertext"><router-link class="link" to="/">タコヤキ</router-link></h2>
     <p class="headertext marginfree">BY</p>
     <a class="headertext link" href="https://github.com/KaratsubaLabs" target="_blank">からつばLABS</a>
   </div>
@@ -30,6 +30,7 @@ a.headertext, p.headertext{
 .link{
   cursor: default;
   text-decoration: none;
+  color: inherit;
 }
 .link:active{
   color: cadetblue;
