@@ -1,6 +1,6 @@
 <template>
   <div class="maincontent">
-      <p class="bigtext">おかえり</p>
+      <p class="bigtext" v-on:click="incrementEasteregg">おかえり</p>
       <div class="inputs">
         <input class="username" placeholder="Username">
         <br>
@@ -13,13 +13,27 @@
   </div>
   <div class="bottomtext">
     <p class="signup link">Sign Up</p>
-    <p class="imfeelinghorny link">I'm Feeling Horny</p>
+    <a v-if="horny>=10" class="horny link" href="https://myanimelist.net/anime/40750/Kaifuku_Jutsushi_no_Yarinaoshi" target="_blank">I'm Feeling Horny</a>
   </div>
 </template>
 
 <script>
+//import { useStore } from 'vuex';
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  methods: {
+    incrementEasteregg: function(e) {
+      e.preventDefault()
+      this.horny++;
+    }
+  },
+  data() {
+    return {
+      horny: 0,
+      //store: useStore()
+    }
+  }
 }
 </script>
 
@@ -70,7 +84,7 @@ export default {
 .link:active{
   color: cadetblue;
 }
-.signup, .imfeelinghorny{
+.signup, .horny{
   display: inline;
   margin: 0 10px 0 10px;
 }

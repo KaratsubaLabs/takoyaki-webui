@@ -2,7 +2,8 @@
   <div class="toplinks">
       <p class="bigtext topitem">My Dashboard</p>
       <button class="topitem">Request New</button>
-      <button class="topitem">Archive</button>
+      <button class="topitem">Start</button>
+      <button class="topitem">Download Snapshot</button>
       <button class="topitem">Delete</button>
   </div>
   <div class="datatable">
@@ -13,12 +14,9 @@
         <th>Threads</th>
         <th>RAM (GB)</th>
         <th>Disk (GB)</th>
-        <th>CPU Architecture</th>
-        <th>Instruction Set</th>
-        <th>Physical Host</th>
-        <th>Physical Location</th>
         <th>Date Created</th>
         <th>Status</th>
+        <th>Local IPv4</th>
       </tr>
       <tr>
         <td>Akita</td>
@@ -26,12 +24,19 @@
         <td>2</td>
         <td>2</td>
         <td>15</td>
-        <td>Ivy Bridge</td>
-        <td>AMD64</td>
-        <td>Shinjuku</td>
-        <td>Waterloo</td>
         <td>December 15 2021</td>
-        <td>Active</td>
+        <td>Running</td>
+        <td>192.168.0.69</td>
+      </tr>
+      <tr>
+        <td>Akihabara</td>
+        <td>Arch</td>
+        <td>1</td>
+        <td>1</td>
+        <td>5</td>
+        <td>December 5 2021</td>
+        <td>Stopped</td>
+        <td>192.168.0.70</td>
       </tr>
     </table>
   </div>
