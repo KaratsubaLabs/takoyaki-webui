@@ -18,7 +18,7 @@
 </template>
 
 <script>
-//import { useStore } from 'vuex';
+import axios from 'axios'
 
 export default {
   name: 'Login',
@@ -26,12 +26,14 @@ export default {
     incrementEasteregg: function(e) {
       e.preventDefault()
       this.horny++;
-    }
+    },
+    processLogin: function(e) {
+      e.preventDefault()
+    },
   },
   data() {
     return {
-      horny: 0,
-      //store: useStore()
+      horny: 0
     }
   }
 }
@@ -48,6 +50,8 @@ export default {
 .bigtext{
   font-size: 100px;
   margin: 10px;
+  user-select: none;
+  cursor: default;
 }
 .username, .password{
   font-size: 18px;
@@ -79,6 +83,7 @@ export default {
   border: 1px solid cadetblue;
 }
 .link{
+  user-select: none;
   cursor: default;
 }
 .link:active{
