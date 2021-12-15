@@ -2,10 +2,10 @@
   <div class="maincontent">
       <p class="bigtext" v-on:click="incrementEasteregg">おかえり</p>
       <div class="inputs">
-        <input class="username" placeholder="Username">
+        <input class="username" v-model="username" placeholder="Username">
         <br>
-        <input class="password" type="password" placeholder="Password">
-        <button class="login_btn">
+        <input class="password" v-model="password" type="password" placeholder="Password">
+        <button class="login_btn" v-on:click="processLogin">
           <font-awesome-icon icon="arrow-right" />
         </button>
         <p class="forgotpassword link">Forgot your password?</p>
@@ -18,22 +18,37 @@
 </template>
 
 <script>
-import axios from 'axios'
+import AuthService from '/src/services/auth.service.js'
 
 export default {
   name: 'Login',
   methods: {
     incrementEasteregg: function(e) {
-      e.preventDefault()
+      e.preventDefault();
       this.horny++;
     },
     processLogin: function(e) {
-      e.preventDefault()
+      e.preventDefault();
+      if (this.username == "") alert("Username cannot be empty");
+      else if (this.password == "") alert("Password cannot be empty");
+      else {
+        var response = AuthService.login(this.username, this.password);
+        console.log(response)
+        if (response.status == 200) {
+          this.$router.push('/dashboard');
+        }
+        else if (response.status == 401) alert("401 UNAUTHORIZED: Username or password incorrect");
+        else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+        else alert("Error: Backend Unreachable");
+        this.password = "";
+      }
     },
   },
   data() {
     return {
-      horny: 0
+      horny: 0,
+      username: "",
+      password: ""
     }
   }
 }
