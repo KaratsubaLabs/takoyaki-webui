@@ -1,18 +1,22 @@
 <template>
   <div class="maincontent">
-      <p class="bigtext" v-on:click="incrementEasteregg">おかえり</p>
+      <p v-if="this.$route.path == '/login'" class="bigtext" v-on:click="this.horny++">おかえり</p>
+      <p v-if="this.$route.path == '/signup'" class="bigtext" v-on:click="this.horny++">ようこそ</p>
       <div class="inputs">
         <input class="username" v-model="username" placeholder="Username">
         <br>
+        <input v-if="this.$route.path == '/signup'" class="username" v-model="email" placeholder="Email">
+        <br v-if="this.$route.path == '/signup'">
         <input class="password" v-model="password" type="password" placeholder="Password">
-        <button class="login_btn" v-on:click="processLogin">
+        <button class="login_btn" v-on:click="logUp">
           <font-awesome-icon icon="arrow-right" />
         </button>
-        <p class="forgotpassword link">Forgot your password?</p>
+        <p v-if="this.$route.path == '/login'" class="forgotpassword link" v-on:click="processResetPassword">Forgot your password?</p>
       </div>
   </div>
   <div class="bottomtext">
-    <p class="signup link">Sign Up</p>
+    <p class="signup link" v-if="this.$route.path == '/login'" v-on:click="this.$router.push('/signup'); this.horny=0">No Account? Sign Up</p>
+    <p class="signup link" v-if="this.$route.path == '/signup'" v-on:click="this.$router.push('/login'); this.horny=0">Already Have an account? Log In</p>
     <a v-if="horny>=10" class="horny link" href="https://myanimelist.net/anime/40750/Kaifuku_Jutsushi_no_Yarinaoshi" target="_blank">I'm Feeling Horny</a>
   </div>
 </template>
@@ -23,18 +27,19 @@ import AuthService from '/src/services/auth.service.js'
 export default {
   name: 'Login',
   methods: {
-    incrementEasteregg: function(e) {
-      e.preventDefault();
-      this.horny++;
+    logUp: function(e) {
+      e.preventDefault()
+      if (this.$route.path == '/login') this.processLogin();
+      else if (this.$route.path == '/signup') this.processSignUp();
     },
-    processLogin: function(e) {
-      e.preventDefault();
+    processLogin: function() {
       if (this.username == "") alert("Username cannot be empty");
       else if (this.password == "") alert("Password cannot be empty");
       else {
         var response = AuthService.login(this.username, this.password);
         console.log(response)
         if (response.status == 200) {
+          this.horny=0;
           this.$router.push('/dashboard');
         }
         else if (response.status == 401) alert("401 UNAUTHORIZED: Username or password incorrect");
@@ -43,11 +48,23 @@ export default {
         this.password = "";
       }
     },
+    processSignUp: function() { 
+     if (this.username == "") alert("Username cannot be empty");
+     else if (this.email == "") alert("Email cannot be empty");
+     else if (this.password == "") alert("Password cannot be empty");
+    },
+    processResetPassword: function(e) {
+      e.preventDefault();
+      var email = window.prompt("Please enter your email address:");
+      
+      if(email == "") alert("Please enter an email address!");
+    }
   },
   data() {
     return {
       horny: 0,
       username: "",
+      email: "",
       password: ""
     }
   }
