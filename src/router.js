@@ -6,28 +6,24 @@ import Kongura from '/src/components/Kongura.vue'
 const routes = [
     {
         path: '/login',
-        name: 'Login',
         component: Login,
     },
     {
         path: '/signup',
-        name: 'SignUp',
         component: Login,
     },
     {
         path: '/dashboard',
-        name: 'Dashboard',
         component: Dashboard,
     },
     {
         path: '/kongura',
-        name: 'Kongura',
         component: Kongura,
+        props: route => ({mode: route.query.q}),
     },
     {
         path: '/:pathMatch(.*)*',
-        name: 'RedirectToDashboard',
-        redirect: '/dashboard'
+        redirect: '/login'
     }
 ]
 

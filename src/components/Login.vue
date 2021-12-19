@@ -1,12 +1,10 @@
 <template>
   <div class="maincontent">
-      <p v-if="this.$route.path == '/login'" class="bigtext" v-on:click="this.horny++">おかえり</p>
-      <p v-if="this.$route.path == '/signup'" class="bigtext" v-on:click="this.horny++">ようこそ</p>
+      <p class="bigtext" v-if="this.$route.path == '/login'" v-on:click="this.horny++">おかえり</p>
+      <p class="bigtext" v-if="this.$route.path == '/signup'" v-on:click="this.horny++">ようこそ</p>
       <div class="inputs">
-        <input class="username" v-model="username" placeholder="Username">
+        <input class="email" v-model="email" placeholder="Email">
         <br>
-        <input v-if="this.$route.path == '/signup'" class="username" v-model="email" placeholder="Email">
-        <br v-if="this.$route.path == '/signup'">
         <input class="password" v-model="password" type="password" placeholder="Password">
         <button class="login_btn" v-on:click="logUp">
           <font-awesome-icon icon="arrow-right" />
@@ -23,35 +21,44 @@
 
 <script>
 import AuthService from '/src/services/auth.service.js'
+import {useRouter} from 'vue-router'
 
 export default {
-  name: 'Login',
+  setup() {
+    if (localStorage.getItem('authToken') != null) useRouter().push('/dashboard');
+  },
   methods: {
     logUp: function(e) {
-      e.preventDefault()
-      if (this.$route.path == '/login') this.processLogin();
-      else if (this.$route.path == '/signup') this.processSignUp();
-    },
-    processLogin: function() {
-      if (this.username == "") alert("Username cannot be empty");
+      e.preventDefault();
+      if (this.email == "") alert("Email cannot be empty");
       else if (this.password == "") alert("Password cannot be empty");
       else {
-        var response = AuthService.login(this.username, this.password);
-        console.log(response)
-        if (response.status == 200) {
-          this.horny=0;
-          this.$router.push('/dashboard');
-        }
-        else if (response.status == 401) alert("401 UNAUTHORIZED: Username or password incorrect");
-        else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
-        else alert("Error: Backend Unreachable");
-        this.password = "";
+        if (this.$route.path == '/login') this.processLogin();
+        else if (this.$route.path == '/signup') this.processSignUp();
       }
     },
-    processSignUp: function() { 
-     if (this.username == "") alert("Username cannot be empty");
-     else if (this.email == "") alert("Email cannot be empty");
-     else if (this.password == "") alert("Password cannot be empty");
+    processLogin: function() {
+      var response = AuthService.login(this.email, this.password);
+      console.log(response)
+      if (response.status == 200) {
+        this.horny=0;
+        this.$router.push('/dashboard');
+      }
+      else if (response.status == 401) alert("401 UNAUTHORIZED: Email or password incorrect");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
+      this.password = "";
+    },
+    processSignUp: function() {
+      var response = AuthService.register(this.email, this.password);
+      console.log(response);
+      if (response.status == 200) {
+        this.horny = 0;
+        this.$router.push('/kongura?data=sign%20up');
+      }
+      else if (response.status == 409) alert("409 CONFLICT: Email is taken");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
     },
     processResetPassword: function(e) {
       e.preventDefault();
@@ -63,7 +70,6 @@ export default {
   data() {
     return {
       horny: 0,
-      username: "",
       email: "",
       password: ""
     }
@@ -85,17 +91,17 @@ export default {
   user-select: none;
   cursor: default;
 }
-.username, .password{
+.email, .password{
   font-size: 18px;
   padding: 5px 10px 5px 10px;
   border: 1px solid slategrey;
   margin: 10px 0 10px 0;
 }
-.username:focus, .password:focus{
+.email:focus, .password:focus{
   outline: none;
   border: 1px solid cadetblue;
 }
-.username{
+.email{
   width: 250px;
 }
 .password{

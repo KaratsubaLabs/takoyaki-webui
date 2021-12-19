@@ -1,14 +1,22 @@
 <template>
   <div class="maincontent">
       <p class="bigtext">コングラ</p>
-      <p class="smoltext">Your request has been submitted!</p>
+      <p class="smoltext">Your {{data}} request has been submitted!</p>
       <button class="smolbtn"><router-link class="link" to="/dashboard">Back to Dashboard</router-link></button>
   </div>
 </template>
 
 <script>
+import {useRoute, useRouter} from 'vue-router'
+
 export default {
-  name: 'Kongura'
+  setup() {
+    var route = useRoute(), router = useRouter();
+    if (route.query.data == undefined) router.push("/");
+    return {
+      data: route.query.data
+    }
+  }
 }
 </script>
 
