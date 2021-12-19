@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '/src/components/Login.vue'
 import Dashboard from '/src/components/Dashboard.vue'
 import Kongura from '/src/components/Kongura.vue'
+import RequestForm from '/src/components/RequestForm.vue'
 
 const routes = [
     {
@@ -19,7 +20,10 @@ const routes = [
     {
         path: '/kongura',
         component: Kongura,
-        props: route => ({mode: route.query.q}),
+    },
+    {
+        path: '/request',
+        component: RequestForm,
     },
     {
         path: '/:pathMatch(.*)*',

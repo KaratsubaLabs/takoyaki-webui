@@ -1,10 +1,10 @@
 <template>
   <div class="toplinks">
-      <p class="bigtext topitem">My Dashboard</p>
-      <button class="topitem">Request New</button>
-      <button class="topitem">Start</button>
-      <button class="topitem">Download Snapshot</button>
-      <button class="topitem">Delete</button>
+    <p class="bigtext topitem">My Dashboard</p>
+    <button class="topitem">Request New</button>
+    <button class="topitem">Start</button>
+    <button class="topitem">Download Snapshot</button>
+    <button class="topitem">Delete</button>
   </div>
   <div class="datatable">
     <table>
@@ -43,46 +43,50 @@
 </template>
 
 <script>
+import {useRouter} from 'vue-router'
+
 export default {
-  name: 'Dashboard'
+  setup() {
+    if (localStorage.getItem('authToken') == null) useRouter().push('/login');
+  },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-button{
-  border: none;
-  background: none;
-  color: #2c3e50;
-}
-button:active{
-  color: cadetblue;
-}
-table{
-  border-collapse: collapse;
-  margin: 0 10px 0 10px;
-}
-th{
-  padding: 5px 15px 5px 15px;
-  border-bottom: 2px solid slategrey;
-}
-td{
-  padding: 5px 10px 5px 10px;
-}
-.toplinks {
-  height: auto;
-  width: 100%;
-  text-align: left;
-}
-.topitem {
-  margin: 10px 10px 10px 10px;
-  font-size: 18px;
-  vertical-align: middle;
-  display: inline-flex;
-  color: #2c3e50;
-}
-.bigtext{
-  font-size: 40px;
-  margin: 10px 25px 10px 10px;
-}
+  button {
+    border: none;
+    background: none;
+    color: #2c3e50;
+  }
+  button:active {
+    color: cadetblue;
+  }
+  table {
+    border-collapse: collapse;
+    margin: 0 10px 0 10px;
+  }
+  th {
+    padding: 5px 15px 5px 15px;
+    border-bottom: 2px solid slategrey;
+  }
+  td {
+    padding: 5px 10px 5px 10px;
+  }
+  .toplinks {
+    height: auto;
+    width: 100%;
+    text-align: left;
+  }
+  .topitem {
+    margin: 10px 10px 10px 10px;
+    font-size: 18px;
+    vertical-align: middle;
+    display: inline-flex;
+    color: #2c3e50;
+  }
+  .bigtext {
+    font-size: 40px;
+    margin: 10px 25px 10px 10px;
+  }
 </style>

@@ -1,16 +1,16 @@
 <template>
   <div class="maincontent">
-      <p class="bigtext" v-if="this.$route.path == '/login'" v-on:click="this.horny++">おかえり</p>
-      <p class="bigtext" v-if="this.$route.path == '/signup'" v-on:click="this.horny++">ようこそ</p>
-      <div class="inputs">
-        <input class="email" v-model="email" placeholder="Email">
-        <br>
-        <input class="password" v-model="password" type="password" placeholder="Password">
-        <button class="login_btn" v-on:click="logUp">
-          <font-awesome-icon icon="arrow-right" />
-        </button>
-        <p v-if="this.$route.path == '/login'" class="forgotpassword link" v-on:click="processResetPassword">Forgot your password?</p>
-      </div>
+    <p class="bigtext" v-if="this.$route.path == '/login'" v-on:click="this.horny++">おかえり</p>
+    <p class="bigtext" v-if="this.$route.path == '/signup'" v-on:click="this.horny++">ようこそ</p>
+    <div class="inputs">
+      <input class="email" v-model="email" placeholder="Email">
+      <br>
+      <input class="password" v-model="password" type="password" placeholder="Password">
+      <button class="login_btn" v-on:click="logUp">
+        <font-awesome-icon icon="arrow-right" />
+      </button>
+      <p v-if="this.$route.path == '/login'" class="forgotpassword link" v-on:click="processResetPassword">Forgot your password?</p>
+    </div>
   </div>
   <div class="bottomtext">
     <p class="signup link" v-if="this.$route.path == '/login'" v-on:click="this.$router.push('/signup'); this.horny=0">No Account? Sign Up</p>
@@ -79,61 +79,61 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.maincontent{
-  position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
-  width: 100%
-}
-.bigtext{
-  font-size: 100px;
-  margin: 10px;
-  user-select: none;
-  cursor: default;
-}
-.email, .password{
-  font-size: 18px;
-  padding: 5px 10px 5px 10px;
-  border: 1px solid slategrey;
-  margin: 10px 0 10px 0;
-}
-.email:focus, .password:focus{
-  outline: none;
-  border: 1px solid cadetblue;
-}
-.email{
-  width: 250px;
-}
-.password{
-  width: 217px;
-  border-right: 0px !important;
-}
-.login_btn{
-  height: 33px;
-  width: 33px;
-  padding: 0px;
-  background: white;
-  border: 1px solid slategrey;
-  font-size: 18px;
-  color: #2c3e50;
-}
-.login_btn:active{
-  border: 1px solid cadetblue;
-}
-.link{
-  user-select: none;
-  cursor: default;
-}
-.link:active{
-  color: cadetblue;
-}
-.signup, .horny{
-  display: inline;
-  margin: 0 10px 0 10px;
-}
-.bottomtext{
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
-}
+  .maincontent {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 100%
+  }
+  .bigtext {
+    font-size: 100px;
+    margin: 10px;
+    user-select: none;
+    cursor: default;
+  }
+  .email, .password {
+    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid slategrey;
+    margin: 10px 0 10px 0;
+  }
+  .email:focus, .password:focus {
+    outline: none;
+    border: 1px solid cadetblue;
+  }
+  .email {
+    width: 250px;
+  }
+  .password {
+    width: 217px;
+    border-right: 0px !important;
+  }
+  .login_btn {
+    height: 33px;
+    width: 33px;
+    padding: 0px;
+    background: white;
+    border: 1px solid slategrey;
+    font-size: 18px;
+    color: #2c3e50;
+  }
+  .login_btn:active {
+    border: 1px solid cadetblue;
+  }
+  .link {
+    user-select: none;
+    cursor: default;
+  }
+  .link:active {
+    color: cadetblue;
+  }
+  .signup, .horny {
+    display: inline;
+    margin: 0 10px 0 10px;
+  }
+  .bottomtext {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+  }
 </style>
