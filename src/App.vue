@@ -24,18 +24,18 @@
   display: inline-flex;
   vertical-align: middle;
 }
-a.headertext, p.headertext{
+a.headertext, p.headertext {
   color: lightslategrey;
 }
-.link{
+.link {
   cursor: default;
   text-decoration: none;
   color: inherit;
 }
-.link:active{
+.link:active {
   color: cadetblue;
 }
-.marginfree{
+.marginfree {
   margin-right: 0px;
 }
 </style>
