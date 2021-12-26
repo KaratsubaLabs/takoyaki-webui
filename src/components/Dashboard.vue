@@ -60,7 +60,7 @@ export default {
     color: #2c3e50;
   }
   button:active {
-    color: cadetblue;
+    color: lightseagreen;
   }
   table {
     border-collapse: collapse;

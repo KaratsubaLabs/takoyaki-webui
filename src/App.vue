@@ -18,6 +18,11 @@
 .header {
   width: 100%;
   text-align: left;
+  background-color: lightseagreen;
+}
+.logo {
+  color: #F0F0F0;
+  margin: 6px 8px !important;
 }
 .headertext {
   margin: 0 6px 0 6px;
@@ -25,7 +30,7 @@
   vertical-align: middle;
 }
 a.headertext, p.headertext {
-  color: lightslategrey;
+  color: #EEEEEE;
 }
 .link {
   cursor: default;
@@ -33,7 +38,7 @@ a.headertext, p.headertext {
   color: inherit;
 }
 .link:active {
-  color: cadetblue;
+  color: lightseagreen;
 }
 .marginfree {
   margin-right: 0px;

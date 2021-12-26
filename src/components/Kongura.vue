@@ -30,7 +30,7 @@ export default {
     background: none;
   }
   button:active {
-    color: cadetblue;
+    color: lightseagreen;
   }
   .maincontent {
     position: absolute;

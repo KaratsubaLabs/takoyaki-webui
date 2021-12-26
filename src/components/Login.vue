@@ -99,7 +99,7 @@ export default {
   }
   .email:focus, .password:focus {
     outline: none;
-    border: 1px solid cadetblue;
+    border: 1px solid lightseagreen;
   }
   .email {
     width: 250px;
@@ -118,14 +118,14 @@ export default {
     color: #2c3e50;
   }
   .login_btn:active {
-    border: 1px solid cadetblue;
+    border: 1px solid lightseagreen;
   }
   .link {
     user-select: none;
     cursor: default;
   }
   .link:active {
-    color: cadetblue;
+    color: lightseagreen;
   }
   .signup, .horny {
     display: inline;

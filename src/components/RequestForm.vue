@@ -122,7 +122,7 @@ export default{
     color: #2c3e50;
   }
   button:active {
-    color: cadetblue;
+    color: lightseagreen;
   }
   input, textarea {
     font-size: 18px;
@@ -133,7 +133,7 @@ export default{
   }
   input:focus, textarea:focus {
     outline: none;
-    border: 1px solid cadetblue;
+    border: 1px solid lightseagreen;
   }
   .maincontent {
     position: absolute;
