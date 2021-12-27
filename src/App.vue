@@ -4,7 +4,7 @@
     <p class="headertext marginfree">BY</p>
     <a class="headertext link" href="https://github.com/KaratsubaLabs" target="_blank">からつばLABS</a>
   </div>
-  <router-view />
+  <div class="body"><router-view /></div>
 </template>
 
 <style>
@@ -20,9 +20,12 @@
   text-align: left;
   background-color: lightseagreen;
 }
+.body {
+  margin: 8px 12px;
+}
 .logo {
   color: #F0F0F0;
-  margin: 6px 8px !important;
+  margin: 4px 8px !important;
 }
 .headertext {
   margin: 0 6px 0 6px;

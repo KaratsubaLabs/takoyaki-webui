@@ -57,7 +57,8 @@
     <p class="red">※ Indicates Mandatory Field</p>
   </div>
   <div class="bottomtext">
-    <button class="submitbtn" v-on:click="processSubmit">Submit Request</button>
+    <button class="bottombtn"><router-link class="link" to="/dashboard">Go Back</router-link></button>
+    <button class="bottombtn" v-on:click="processSubmit">Submit Request</button>
   </div>
 </template>
 
@@ -95,9 +96,10 @@ export default{
   },
   data() {
     var label = "new VPS"
-    if (this.$route.query.action == "create") {
+    console.log(this.$route.query.id);
+    if (this.$route.query.id == undefined) {
       label = "new VPS";
-    } else if (this.$route.query.action == "modify") {
+    } else {
       label = "to edit VPS";
     }
     return{
@@ -138,7 +140,7 @@ export default{
   .maincontent {
     position: absolute;
     top: 50%;
-    transform: translateY(-60%);
+    transform: translateY(-55%);
     width: 100%;
   }
   .bigtext {
@@ -154,7 +156,7 @@ export default{
     bottom: 20px;
     width: 100%;
   }
-  .submitbtn {
+  .bottombtn {
     margin: 10px 10px 10px 10px;
     font-size: 18px;
     vertical-align: middle;
@@ -181,6 +183,11 @@ export default{
   }
   .label.bottom {
     margin: 42px 0 42px 0 !important;
+  }
+  .link {
+    cursor: default;
+    text-decoration: none;
+    color: inherit;
   }
   .form {
     display: flex;

@@ -1,10 +1,10 @@
 <template>
   <div class="toplinks">
     <p class="bigtext topitem">My Dashboard</p>
-    <button class="topitem">Request New</button>
-    <button class="topitem">Start</button>
-    <button class="topitem">Download Snapshot</button>
-    <button class="topitem">Delete</button>
+    <button class="topitem"><router-link class="link" to="/request">Request New</router-link></button>
+    <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Start/Stop</button>
+    <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Download Snapshot</button>
+    <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Delete</button>
   </div>
   <div class="datatable">
     <table>
@@ -49,6 +49,11 @@ export default {
   setup() {
     if (localStorage.getItem('authToken') == null) useRouter().push('/login');
   },
+  data() {
+    return {
+      vm_selected: false,
+    }
+  }
 }
 </script>
 
@@ -62,6 +67,9 @@ export default {
   button:active {
     color: lightseagreen;
   }
+  button.disabled {
+    color: silver;
+  }
   table {
     border-collapse: collapse;
     margin: 0 10px 0 10px;
@@ -72,6 +80,11 @@ export default {
   }
   td {
     padding: 5px 10px 5px 10px;
+  }
+  .link {
+    cursor: default;
+    text-decoration: none;
+    color: inherit;
   }
   .toplinks {
     height: auto;
