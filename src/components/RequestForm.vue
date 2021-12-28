@@ -5,6 +5,7 @@
       <div class="labels">
         <p class="label" v-on:mouseover="displayname.tooltip=true" v-on:mouseout="displayname.tooltip=false">Display Name</p>
         <p class="label" v-if="id == undefined" v-on:mouseover="hostname.tooltip=true" v-on:mouseout="hostname.tooltip=false">Hostname</p>
+        <p class="label" v-if="id == undefined" v-on:mouseover="os.tooltip=true" v-on:mouseout="os.tooltip=false">Operating System</p>
         <p class="label" v-if="id == undefined" v-on:mouseover="username.tooltip=true" v-on:mouseout="username.tooltip=false">Username</p>
         <p class="label" v-if="id == undefined" v-on:mouseover="password.tooltip=true" v-on:mouseout="password.tooltip=false">Password</p>
         <p class="label" v-if="id == undefined" v-on:mouseover="ssh.tooltip=true" v-on:mouseout="ssh.tooltip=false">SSH Public Key</p>
@@ -15,31 +16,49 @@
       </div>
       <div class="inputs">
         <div class="input">
-          <input class="dispname" v-model="displayname.value" v-on:focus="displayname.ok = true" v-bind:class="{invalid:!displayname.ok}" placeholder="Shibuya">
+          <input class="dispname" v-model="displayname.value" v-on:focus="displayname.ok = true" v-on:focusout="displayname.value=='' ? displayname.ok=false : displayname.ok=true"
+            v-bind:class="{invalid:!displayname.ok}" placeholder="Shibuya">
           <p class="red" v-on:mouseover="displayname.tooltip=true" v-on:mouseout="displayname.tooltip=false">※</p>
           <div class="invisible">
-            <div class="tooltip" v-if="displayname.tooltip">This field is mandatory</div>
+            <div class="tooltip" v-if="displayname.tooltip">Display name shown in the dashboard only</div>
           </div>
         </div>
         <div class="input" v-if="id == undefined">
-          <input class="hostname" v-model="hostname.value" v-on:focus="hostname.ok = true" v-bind:class="{invalid:!hostname.ok}" placeholder="shibuya">
+          <input class="hostname" v-model="hostname.value" v-on:focus="hostname.ok = true" v-on:focusout="hostname.value=='' ? hostname.ok=false : hostname.ok=true"
+            v-bind:class="{invalid:!hostname.ok}" placeholder="shibuya">
           <p class="red" v-on:mouseover="hostname.tooltip=true" v-on:mouseout="hostname.tooltip=false">※</p>
           <div class="invisible">
-            <div class="tooltip" v-if="hostname.tooltip">This field is mandatory</div>
+            <div class="tooltip" v-if="hostname.tooltip">The VPS' hostname</div>
           </div>
         </div>
         <div class="input" v-if="id == undefined">
-          <input class="username" v-model="username.value" v-on:focus="username.ok = true" v-bind:class="{invalid:!username.ok}" placeholder="kugelblitz">
+          <input readonly class="os" v-model="os.value" v-on:focus="os.ok = true" v-on:click="dropdown_expanded = true" v-on:focusout="os.value=='' ? os.ok=false : os.ok=true"
+            v-bind:class="{invalid:!os.ok}" placeholder="Debian 11">
+          <div class="dropdown" v-on:click="dropdown_expanded=false" v-on:mouseover="dropdown_expanded = true" v-on:mouseout="dropdown_expanded = false" v-bind:class="{expanded: dropdown_expanded}">
+            <p v-on:click="os.value='arch'">Arch</p>
+            <p v-on:click="os.value='debian_10'">Debian 10</p>
+            <p v-on:click="os.value='debian_11'">Debian 11</p>
+            <p v-on:click="os.value='ubuntu_2004'">Ubuntu Server 20.04 LTS</p>
+          </div>
+          <p class="red" v-on:mouseover="os.tooltip=true" v-on:mouseout="os.tooltip=false">※</p>
+          <div class="invisible">
+            <div class="tooltip" v-if="os.tooltip">Choose a supported operating system</div>
+          </div>
+        </div>
+        <div class="input" v-if="id == undefined">
+          <input class="username" v-model="username.value" v-on:focus="username.ok = true" v-on:focusout="username.value=='' ? username.ok=false : username.ok=true"
+            v-bind:class="{invalid:!username.ok}" placeholder="kugelblitz">
           <p class="red" v-on:mouseover="username.tooltip=true" v-on:mouseout="username.tooltip=false">※</p>
           <div class="invisible">
-            <div class="tooltip" v-if="username.tooltip">Your username for your VPS</div>
+            <div class="tooltip" v-if="username.tooltip">The username user account</div>
           </div>
         </div>
         <div class="input" v-if="id == undefined">
-          <input class="name" v-model="password.value" v-on:focus="password.ok = true" v-bind:class="{invalid:!password.ok}" type="password" placeholder="Password">
+          <input class="name" v-model="password.value" v-on:focus="password.ok = true" v-on:focusout="password.value=='' ? password.ok=false : password.ok=true"
+            v-bind:class="{invalid:!password.ok}" type="password" placeholder="Password">
           <p class="red" v-on:mouseover="password.tooltip=true" v-on:mouseout="password.tooltip=false">※</p>
           <div class="invisible">
-            <div class="tooltip" v-if="password.tooltip">Your VPS password</div>
+            <div class="tooltip" v-if="password.tooltip">Your password for your account</div>
           </div>
         </div>
         <div class="input" v-if="id == undefined">
@@ -49,7 +68,7 @@
           </div>
         </div>
         <div class="input">
-          <input class="spec" v-model="cpu.value" v-on:focus="cpu.ok = true" v-on:focusout="(cpu != null && (cpu.value < 1 || cpu.value > 8)) ? cpu.ok = false : cpu.ok = true"
+          <input class="spec" v-model="cpu.value" v-on:focus="cpu.ok = true" v-on:focusout="(cpu.value != null && (cpu.value < 1 || cpu.value > 8)) ? cpu.ok = false : cpu.ok = true"
             v-bind:class="{invalid:!cpu.ok}" type="number" min="1" max="8" placeholder="69">
           <p class="red" v-on:mouseover="cpu.tooltip=true" v-on:mouseout="cpu.tooltip=false">※</p>
           <div class="invisible">
@@ -57,7 +76,7 @@
           </div>
         </div>
         <div class="input">
-          <input class="spec" v-model="ram.value" v-on:focus="ram.ok = true" v-on:focusout="(ram != null && (ram.value < 1 || ram.value > 16)) ? ram.ok = false : ram.ok = true"
+          <input class="spec" v-model="ram.value" v-on:focus="ram.ok = true" v-on:focusout="(ram.value != null && (ram.value < 1 || ram.value > 16)) ? ram.ok = false : ram.ok = true"
             v-bind:class="{invalid:!ram.ok}" type="number" min="1" max="16" placeholder="69">
           <p class="red" v-on:mouseover="ram.tooltip=true" v-on:mouseout="ram.tooltip=false">※</p>
           <div class="invisible">
@@ -65,7 +84,7 @@
           </div>
         </div>
         <div class="input">
-          <input class="spec" v-model="ssd.value" v-on:focus="ssd.ok = true" v-on:focusout="(ssd != null && (ssd.value < 5 || ssd.value > 50)) ? ssd.ok = false : ssd.ok = true"
+          <input class="spec" v-model="ssd.value" v-on:focus="ssd.ok = true" v-on:focusout="(ssd.value != null && (ssd.value < 5 || ssd.value > 50)) ? ssd.ok = false : ssd.ok = true"
             v-bind:class="{invalid:!ssd.ok}" type="number" min="5" max="50" placeholder="420">
           <p class="red" v-on:mouseover="ssd.tooltip=true" v-on:mouseout="ssd.tooltip=false">※</p>
           <div class="invisible">
@@ -86,6 +105,7 @@
 </template>
 
 <script>
+import VPSService from '/src/services/vps.service.js'
 import {useRouter} from 'vue-router'
 
 export default{
@@ -97,22 +117,34 @@ export default{
       e.preventDefault();
       if (this.displayname.value == "") this.displayname.ok = false;
       if (this.hostname.value == "") this.hostname.ok = false;
+      if (this.os.value == "") this.os.ok = false;
+      if (this.username.value == "") this.username.ok = false;
+      if (this.password.value == "") this.password.ok = false;
       if (this.cpu.value < 1 || this.cpu.value > 8) this.cpu.ok = false;
       if (this.ram.value < 1 || this.ram.value > 16) this.ram.ok = false;
       if (this.ssd.value < 5 || this.ssd.value > 50) this.ssd.ok = false;
 
       var editok = false, createok = false;
       if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
-      if (this.hostname.ok && this.username.ok && this.password.ok && editok) createok = true;
+      if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
 
       if (this.$route.query.id == "undefined" && createok) this.processCreate();
       else if (this.$route.query.id != "undefined" && editok) this.processEdit();
     },
     processCreate: function() {
-      
+      var response = VPSService.login(this.displayname.value, this.hostname.value, this.username.value, this.password.value,
+        this.ssh.value, this.ram.value, this.cpu.value, this.ssd.value, this.os.value, this.reason);
+      console.log(response)
+      if (response.status == 200) {
+        this.$router.push('/kongura?data=create%20VPS');
+      }
+      else if (response.status == 400) alert("400 BAD REQUEST: Request contained invalid data; Please fix your form and try again");
+      else if (response.status == 401) alert("401 UNAUTHORIZED: Please log in again");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
     },
     processEdit: function() {
-
+      alert("@MrPicklePinosaur has not implemented this on the backend. This form currently exists as a monument to his failure.");
     }
   },
   data() {
@@ -120,6 +152,7 @@ export default{
       id: this.$route.query.id,
       displayname: {value: "", ok: true, showtooltip: false},
       hostname: {value: "", ok: true, showtooltip: false},
+      os: {value: "", ok: true, showtooltip: false},
       username: {value: "", ok: true, showtooltip: false},
       password: {value: "", ok: true, showtooltip: false},
       ssh: {value: "", ok: true, showtooltip: false},
@@ -127,7 +160,7 @@ export default{
       ram: {value: null, ok: true, showtooltip: false},
       ssd: {value: null, ok: true, showtooltip: false},
       reason: "",
-      test: false
+      dropdown_expanded: false
     }
   }
 }
@@ -143,7 +176,7 @@ export default{
   button:active {
     color: lightseagreen;
   }
-  input, textarea {
+  input, textarea, select {
     font-size: 18px;
     padding: 5px 10px 5px 10px;
     border: 1px solid slategrey;
@@ -242,5 +275,25 @@ export default{
     display: flex;
     justify-content: left;
     color: crimson;
+  }
+  .dropdown {
+    display: none;
+    position: absolute;
+    margin: 5px 15px;
+    background-color: #FFFFFF;
+    border: 1px solid lightseagreen;
+    width: 270px;
+    z-index: 1;
+  }
+  .dropdown p {
+    margin: 0;
+    padding: 8px 0;
+  }
+  .dropdown p:hover {
+    background-color: lightseagreen;
+    color: #FFFFFF;
+  }
+  .dropdown.expanded {
+    display: block;
   }
 </style>
