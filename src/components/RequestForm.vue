@@ -1,10 +1,13 @@
 <template>
   <div class="maincontent">
-    <p class="bigtext">Request {{label}}</p>
+    <p class="bigtext">{{id == undefined ? "Request new VPS" : "Modify VPS specs"}}</p>
     <div class="form">
       <div class="labels">
         <p class="label" v-on:mouseover="displayname.tooltip=true" v-on:mouseout="displayname.tooltip=false">Display Name</p>
-        <p class="label" v-on:mouseover="hostname.tooltip=true" v-on:mouseout="hostname.tooltip=false">Hostname</p>
+        <p class="label" v-if="id == undefined" v-on:mouseover="hostname.tooltip=true" v-on:mouseout="hostname.tooltip=false">Hostname</p>
+        <p class="label" v-if="id == undefined" v-on:mouseover="username.tooltip=true" v-on:mouseout="username.tooltip=false">Username</p>
+        <p class="label" v-if="id == undefined" v-on:mouseover="password.tooltip=true" v-on:mouseout="password.tooltip=false">Password</p>
+        <p class="label" v-if="id == undefined" v-on:mouseover="ssh.tooltip=true" v-on:mouseout="ssh.tooltip=false">SSH Public Key</p>
         <p class="label" v-on:mouseover="cpu.tooltip=true" v-on:mouseout="cpu.tooltip=false">CPU Logical Cores</p>
         <p class="label" v-on:mouseover="ram.tooltip=true" v-on:mouseout="ram.tooltip=false">RAM (GB)</p>
         <p class="label" v-on:mouseover="ssd.tooltip=true" v-on:mouseout="ssd.tooltip=false">SSD (GB)</p>
@@ -12,17 +15,37 @@
       </div>
       <div class="inputs">
         <div class="input">
-          <input class="name" v-model="displayname.value" v-on:focus="displayname.ok = true" v-bind:class="{invalid:!displayname.ok}" placeholder="Shibuya">
+          <input class="dispname" v-model="displayname.value" v-on:focus="displayname.ok = true" v-bind:class="{invalid:!displayname.ok}" placeholder="Shibuya">
           <p class="red" v-on:mouseover="displayname.tooltip=true" v-on:mouseout="displayname.tooltip=false">※</p>
           <div class="invisible">
             <div class="tooltip" v-if="displayname.tooltip">This field is mandatory</div>
           </div>
         </div>
-        <div class="input">
-          <input class="name" v-model="hostname.value" v-on:focus="hostname.ok = true" v-bind:class="{invalid:!hostname.ok}" placeholder="shibuya">
+        <div class="input" v-if="id == undefined">
+          <input class="hostname" v-model="hostname.value" v-on:focus="hostname.ok = true" v-bind:class="{invalid:!hostname.ok}" placeholder="shibuya">
           <p class="red" v-on:mouseover="hostname.tooltip=true" v-on:mouseout="hostname.tooltip=false">※</p>
           <div class="invisible">
             <div class="tooltip" v-if="hostname.tooltip">This field is mandatory</div>
+          </div>
+        </div>
+        <div class="input" v-if="id == undefined">
+          <input class="username" v-model="username.value" v-on:focus="username.ok = true" v-bind:class="{invalid:!username.ok}" placeholder="kugelblitz">
+          <p class="red" v-on:mouseover="username.tooltip=true" v-on:mouseout="username.tooltip=false">※</p>
+          <div class="invisible">
+            <div class="tooltip" v-if="username.tooltip">Your username for your VPS</div>
+          </div>
+        </div>
+        <div class="input" v-if="id == undefined">
+          <input class="name" v-model="password.value" v-on:focus="password.ok = true" v-bind:class="{invalid:!password.ok}" type="password" placeholder="Password">
+          <p class="red" v-on:mouseover="password.tooltip=true" v-on:mouseout="password.tooltip=false">※</p>
+          <div class="invisible">
+            <div class="tooltip" v-if="password.tooltip">Your VPS password</div>
+          </div>
+        </div>
+        <div class="input" v-if="id == undefined">
+          <input class="name" v-model="ssh.value" v-on:focus="ssh.ok = true" v-bind:class="{invalid:!ssh.ok}" placeholder="SSH Key">
+          <div class="invisible">
+            <div class="tooltip" v-if="ssh.tooltip">Your SSH public key (Optional)</div>
           </div>
         </div>
         <div class="input">
@@ -78,14 +101,12 @@ export default{
       if (this.ram.value < 1 || this.ram.value > 16) this.ram.ok = false;
       if (this.ssd.value < 5 || this.ssd.value > 50) this.ssd.ok = false;
 
-      if (this.displayname.ok && this.hostname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) {
-        if (this.$route.query.action == "create") {
-          this.processCreate();
-        }
-        else if (this.$route.query.action == "modify") {
-          this.processEdit();
-        }
-      }
+      var editok = false, createok = false;
+      if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
+      if (this.hostname.ok && this.username.ok && this.password.ok && editok) createok = true;
+
+      if (this.$route.query.id == "undefined" && createok) this.processCreate();
+      else if (this.$route.query.id != "undefined" && editok) this.processEdit();
     },
     processCreate: function() {
       
@@ -95,17 +116,13 @@ export default{
     }
   },
   data() {
-    var label = "new VPS"
-    console.log(this.$route.query.id);
-    if (this.$route.query.id == undefined) {
-      label = "new VPS";
-    } else {
-      label = "to edit VPS";
-    }
     return{
-      label: label,
+      id: this.$route.query.id,
       displayname: {value: "", ok: true, showtooltip: false},
       hostname: {value: "", ok: true, showtooltip: false},
+      username: {value: "", ok: true, showtooltip: false},
+      password: {value: "", ok: true, showtooltip: false},
+      ssh: {value: "", ok: true, showtooltip: false},
       cpu: {value: null, ok: true, showtooltip: false},
       ram: {value: null, ok: true, showtooltip: false},
       ssd: {value: null, ok: true, showtooltip: false},
@@ -141,7 +158,13 @@ export default{
     position: absolute;
     top: 50%;
     transform: translateY(-55%);
+    max-height: calc(100vh - 150px);
     width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
   .bigtext {
     font-size: 40px;
