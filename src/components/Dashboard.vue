@@ -2,6 +2,7 @@
   <div class="toplinks">
     <p class="bigtext topitem">My Dashboard</p>
     <button class="topitem"><router-link class="link" to="/request">Request New</router-link></button>
+    <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Edit Specs</button>
     <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Start/Stop</button>
     <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Download Snapshot</button>
     <button class="topitem disabled" v-bind:class="{disabled: !vm_selected}">Delete</button>
