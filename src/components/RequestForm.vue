@@ -160,8 +160,10 @@ export default{
     transform: translateY(-55%);
     max-height: calc(100vh - 150px);
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     scrollbar-width: none;
+    z-index: -1;
   }
   ::-webkit-scrollbar {
     display: none;

@@ -72,7 +72,7 @@ export default {
   }
   table {
     border-collapse: collapse;
-    margin: 0 10px 0 10px;
+    margin: 12px 10px;
   }
   th {
     padding: 5px 15px 5px 15px;
@@ -88,8 +88,8 @@ export default {
   }
   .toplinks {
     height: auto;
-    width: 100%;
     text-align: left;
+    margin: 0 12px;
   }
   .topitem {
     margin: 10px 10px 10px 10px;

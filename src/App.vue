@@ -21,7 +21,7 @@
   background-color: lightseagreen;
 }
 .body {
-  margin: 8px 12px;
+  margin: 8px 0;
 }
 .logo {
   color: #F0F0F0;
