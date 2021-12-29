@@ -115,6 +115,16 @@ export default{
   methods: {
     processSubmit: function(e) {
       e.preventDefault();
+      this.validate();
+
+      var editok = false, createok = false;
+      if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
+      if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
+
+      if (this.$route.query.id == "undefined" && createok) this.processCreate();
+      else if (this.$route.query.id != "undefined" && editok) this.processEdit();
+    },
+    validate: function() {
       if (this.displayname.value == "") this.displayname.ok = false;
       if (this.hostname.value == "") this.hostname.ok = false;
       if (this.os.value == "") this.os.ok = false;
@@ -123,13 +133,6 @@ export default{
       if (this.cpu.value < 1 || this.cpu.value > 8) this.cpu.ok = false;
       if (this.ram.value < 1 || this.ram.value > 16) this.ram.ok = false;
       if (this.ssd.value < 5 || this.ssd.value > 50) this.ssd.ok = false;
-
-      var editok = false, createok = false;
-      if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
-      if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
-
-      if (this.$route.query.id == "undefined" && createok) this.processCreate();
-      else if (this.$route.query.id != "undefined" && editok) this.processEdit();
     },
     processCreate: function() {
       var response = VPSService.login(this.displayname.value, this.hostname.value, this.username.value, this.password.value,
@@ -148,17 +151,24 @@ export default{
     }
   },
   data() {
+    var displayname = "", cpu = null, ram = null, ssd = null;
+    if (this.$route.query.id != undefined) {
+      displayname = this.$route.query.display;
+      cpu = this.$route.query.cpu;
+      ram = this.$route.query.ram;
+      ssd = this.$route.query.ssd;
+    }
     return{
       id: this.$route.query.id,
-      displayname: {value: "", ok: true, showtooltip: false},
+      displayname: {value: (displayname==undefined?"":displayname), ok: true, showtooltip: false},
       hostname: {value: "", ok: true, showtooltip: false},
       os: {value: "", ok: true, showtooltip: false},
       username: {value: "", ok: true, showtooltip: false},
       password: {value: "", ok: true, showtooltip: false},
       ssh: {value: "", ok: true, showtooltip: false},
-      cpu: {value: null, ok: true, showtooltip: false},
-      ram: {value: null, ok: true, showtooltip: false},
-      ssd: {value: null, ok: true, showtooltip: false},
+      cpu: {value: cpu==undefined?null:cpu, ok: true, showtooltip: false},
+      ram: {value: ram==undefined?null:ram, ok: true, showtooltip: false},
+      ssd: {value: ssd==undefined?null:ssd, ok: true, showtooltip: false},
       reason: "",
       dropdown_expanded: false
     }

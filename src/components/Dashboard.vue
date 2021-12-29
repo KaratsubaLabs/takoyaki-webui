@@ -73,7 +73,7 @@ export default {
   }
   table {
     border-collapse: collapse;
-    margin: 12px 10px;
+    margin: 12px 22px;
   }
   th {
     padding: 5px 15px 5px 15px;
