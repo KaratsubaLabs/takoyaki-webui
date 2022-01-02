@@ -2,10 +2,10 @@
   <div class="toplinks">
     <p class="bigtext topitem">My Dashboard</p>
     <button class="topitem"><router-link class="link" to="/request">Request New</router-link></button>
-    <button class="topitem" v-bind:class="{disabled:!vm_selected}" v-on:click="editSpecs">Edit Specs</button>
-    <button class="topitem" v-bind:class="{disabled:!vm_selected}">Start/Stop</button>
-    <button class="topitem" v-bind:class="{disabled:!vm_selected}">Create Snapshot</button>
-    <button class="topitem" v-bind:class="{disabled:!vm_selected}">Delete</button>
+    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="editSpecs">Edit Specs</button>
+    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="startStop">Start/Stop</button>
+    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="createSnapshot">Create Snapshot</button>
+    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="deleteVPS">Delete</button>
   </div>
   <div class="datatable">
     <table>
@@ -19,8 +19,8 @@
         <th>Status</th>
         <th>Local IPv4</th>
       </tr>
-      <tr class="dataentry" v-for="machine in vm_list" :key="machine.id" v-bind:class="{selected:vm_selected==machine.id}"
-        v-on:click="if(vm_selected!=machine.id)vm_selected=machine.id; else vm_selected=null;">
+      <tr class="dataentry" v-for="(machine, index) in vm_list" :key="index" v-bind:class="{selected:vm_selected==index}"
+        v-on:click="if(vm_selected!=index)vm_selected=index; else vm_selected=null;">
         <td>{{ machine.display_name }}</td>
         <td>{{ machine.os }}</td>
         <td>{{ machine.cpu }}</td>
@@ -56,15 +56,52 @@ export default {
     },
     editSpecs: function(e) {
       e.preventDefault();
+      var url = "/request?id=" + this.vm_list[this.vm_selected].id +
+        "&display=" + this.vm_list[this.vm_selected].display_name +
+        "&cpu=" + this.vm_list[this.vm_selected].cpu +
+        "&ram=" + this.vm_list[this.vm_selected].ram +
+        "&ssd=" + this.vm_list[this.vm_selected].disk;
+
+      this.$router.push(url);
     },
     startStop: function(e) {
       e.preventDefault();
+      if (this.vm_list[this.vm_selected].status){
+        let response = VPSService.stop(this.vm_list[this.vm_selected].id);
+        if (response.status == 200) {
+          this.vm_list[this.vm_selected].status = false;
+          window.alert(this.vm_list[this.vm_selected].display_name + " was successfully stopped!");
+        }
+      }
+      else {
+        let response = VPSService.start(this.vm_list[this.vm_selected].id);
+        if (response.status == 200) {
+          this.vm_list[this.vm_selected].status = true;
+          window.alert(this.vm_list[this.vm_selected].display_name + " was successfully started!");
+        }
+      }
+      this.vm_selected = null;
     },
     createSnapshot: function(e) {
       e.preventDefault();
+      let response = VPSService.snapshot(this.vm_list[this.vm_selected].id);
+      if (response.status == 200) window.alert("Snapshop successfully created for " + this.vm_list[this.vm_selected].display_name + "!");
     },
     deleteVPS: function(e) {
       e.preventDefault();
+      var confirm = prompt("Type 'DELETE' to confirm. DELETING A VPS IS PERMANENT!");
+      if (confirm == "DELETE") {
+        let response = VPSService.delete(this.vm_list[this.vm_selected].id);
+        if (response.status == 200) {
+          this.vm_list.splice(this.vm_selected, 1);
+          window.alert(this.vm_list[this.vm_selected].display_name + " was successfully deleted!");
+        }
+        this.vm_selected = null;
+      }
+      else if (confirm != "") {
+        window.alert("Confirmation failed! (Case Sensitive)");
+      }
+
     }
 
   },
@@ -73,8 +110,7 @@ export default {
       vm_list: [{"id" : 10000, "display_name" : "Aomori", "creation_time" : "December 15 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "debian", "status": true, "ipv4": "192.168.0.69"},
       {"id" : 20000, "display_name" : "Sapporo", "creation_time" : "December 5 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "arch", "status": false, "ipv4": "192.168.0.70"}],
       //vm_list: getVPSList(),
-      vm_selected: false,
-      testvar: "/request?id=1234&display=shibuya&cpu=2&ram=2&ssd=5"
+      vm_selected: null
     }
   }
 }
