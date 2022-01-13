@@ -141,10 +141,10 @@ export default{
       if (response.status == 200) {
         this.$router.push('/kongura?data=create%20VPS');
       }
-      else if (response.status == 400) console.error("400 BAD REQUEST: Request contained invalid data; Please fix your form and try again");
-      else if (response.status == 401) console.error("401 UNAUTHORIZED: Please log in again");
-      else if (response.status == 500) console.error("500 INTERNAL ERROR: Backend Error");
-      else console.error("Error: Backend Unreachable");
+      else if (response.status == 400) alert("400 BAD REQUEST: Request contained invalid data; Please fix your form and try again");
+      else if (response.status == 401) alert("401 UNAUTHORIZED: Please log in again");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
     },
     processEdit: function() {
       alert("@MrPicklePinosaur has not implemented this on the backend. This form currently exists as a monument to his failure.");

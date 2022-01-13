@@ -36,8 +36,8 @@ export default {
     },
     logUp: function(e) {
       e.preventDefault();
-      if (this.email == "") console.error("Email cannot be empty");
-      else if (this.password == "") console.error("Password cannot be empty");
+      if (this.email == "") alert("Email cannot be empty");
+      else if (this.password == "") alert("Password cannot be empty");
       else {
         if (this.$route.path == '/login') this.processLogin();
         else if (this.$route.path == '/signup') this.processSignUp();
@@ -50,9 +50,9 @@ export default {
         this.horny=0;
         this.$router.push('/dashboard');
       }
-      else if (response.status == 401) console.error("401 UNAUTHORIZED: Email or password incorrect");
-      else if (response.status == 500) console.error("500 INTERNAL ERROR: Backend Error");
-      else console.error("Error: Backend Unreachable");
+      else if (response.status == 401) alert("401 UNAUTHORIZED: Email or password incorrect");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
       this.password = "";
     },
     processSignUp: async function() {
@@ -62,15 +62,15 @@ export default {
         this.horny = 0;
         this.$router.push('/dashboard');
       }
-      else if (response.status == 409) console.error("409 CONFLICT: Email is taken");
-      else if (response.status == 500) console.error("500 INTERNAL ERROR: Backend Error");
-      else console.error("Error: Backend Unreachable");
+      else if (response.status == 409) alert("409 CONFLICT: Email is taken");
+      else if (response.status == 500) alert("500 INTERNAL ERROR: Backend Error");
+      else alert("Error: Backend Unreachable");
     },
     processResetPassword: function(e) {
       e.preventDefault();
       var email = window.prompt("Please enter your email address:");
       
-      if(email == "") console.error("Please enter an email address!");
+      if(email == "") alert("Please enter an email address!");
     }
   },
   data() {
