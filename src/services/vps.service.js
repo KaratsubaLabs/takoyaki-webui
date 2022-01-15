@@ -1,34 +1,41 @@
 import axios from 'axios'
 import { API_URL } from '/src/config'
 
+const withAccessToken = () => ({
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': localStorage.getItem('authToken')
+  }
+})
+
 class VPSService {
-  info() {
-    return axios.post(API_URL + "/vps/info", {}).then(resp => resp.data);
+  async info() {
+    return axios.get(API_URL + "/vps", withAccessToken());
   }
 
-  create(display_name, hostname, username, password, ssh_key, ram, cpu, disk, os, message) {
+  async create(display_name, hostname, username, password, ssh_key, ram, cpu, disk, os, message) {
     let body = {display_name: display_name, hostname: hostname, username: username, password: password, ssh_key: ssh_key, ram: ram, cpu: cpu, disk: disk, os: os, message: message}
-    return axios.post(API_URL + "/vps/create", body).then(resp => resp.data);
+    return axios.post(API_URL + "/vps", body, withAccessToken());
   }
 
-  delete(vps_id) {
+  async delete(vps_id) {
     let body = {vps_id: vps_id}
-    return axios.post(API_URL + "/vps/delete", body).then(resp => resp.data);
+    return axios.delete(API_URL + "/vps", body, withAccessToken());
   }
 
-  start(vps_id) {
-    let body = {vps_id: vps_id}
-    return axios.post(API_URL + "/vps/start", body).then(resp => resp.data);
+  async start(vps_id) {
+    let body = {action_type: 'start', vps_id: vps_id}
+    return axios.post(API_URL + "/vps/action", body, withAccessToken());
   }
 
-  stop(vps_id) {
-    let body = {vps_id: vps_id}
-    return axios.post(API_URL + "/vps/stop", body).then(resp => resp.data);
+  async stop(vps_id) {
+    let body = {action_type: 'stop', vps_id: vps_id}
+    return axios.post(API_URL + "/vps/action", body, withAccessToken());
   }
 
-  snapshot(vps_id) {
-    let body = {vps_id: vps_id}
-    return axios.post(API_URL + "/vps/snapshot", body).then(resp => resp.data);
+  async snapshot(vps_id) {
+    let body = {action_type: 'snapshot', vps_id: vps_id}
+    return axios.post(API_URL + "/vps/action", body, withAccessToken());
   }
 }
 

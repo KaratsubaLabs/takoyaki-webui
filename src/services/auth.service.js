@@ -2,23 +2,23 @@ import axios from 'axios'
 import { API_URL } from '/src/config'
 
 class AuthService {
-	login(username, password) {
-		let body = {username: username, password: password}
+	login(email, password) {
+		let body = {email: email, password: password}
 		return axios.post(API_URL + "/login", body).then(resp => {
-			if (resp.data.token != null && resp.data.token != undefined) {
-				localStorage.setItem('authToken', JSON.stringigy({token: resp.data.token}));
+			if (resp.data.token != null) {
+				localStorage.setItem('authToken', resp.data.token);
 			}
-			return resp.data;
+			return resp;
 		})
 	}
 
-	register(username, email, password) {
-		let body = {username: username, email: email, password: password}
+	register(email, password) {
+		let body = {email: email, password: password}
 		return axios.post(API_URL + "/register", body).then(resp => {
-			if (resp.data.token != null && resp.data.token != undefined) {
-				localStorage.setItem('authToken', JSON.stringify({token: resp.data.token}));
+			if (resp.data.token != null) {
+				localStorage.setItem('authToken', resp.data.token);
 			}
-			return resp.data;
+			return resp;
 		})
 	}
 
