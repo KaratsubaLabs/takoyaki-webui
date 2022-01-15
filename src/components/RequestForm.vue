@@ -101,6 +101,18 @@
   <div class="bottomtext">
     <button class="bottombtn"><router-link class="link" to="/dashboard">Go Back</router-link></button>
     <button class="bottombtn" v-on:click="processSubmit">Submit Request</button>
+    <!-- debug info
+    <div>displayname {{displayname}}</div>
+    <div>hostname {{hostname}}</div>
+    <div>os {{os}}</div>
+    <div>username {{username}}</div>
+    <div>password {{password}}</div>
+    <div>ssh {{ssh}}</div>
+    <div>cpu {{cpu}}</div>
+    <div>ram {{ram}}</div>
+    <div>ssd {{ssd}}</div>
+    <div>reason {{reason}}</div>
+    -->
   </div>
 </template>
 
@@ -121,8 +133,11 @@ export default{
       if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
       if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
 
-      if (this.$route.query.id == "undefined" && createok) this.processCreate();
-      else if (this.$route.query.id != "undefined" && editok) this.processEdit();
+      console.debug("editok", editok)
+      console.debug("createok", createok)
+      console.debug("query id", this.$route.query.id)
+      if (this.$route.query.id == undefined && createok) this.processCreate();
+      else if (this.$route.query.id != undefined && editok) this.processEdit();
     },
     validate: function() {
       if (this.displayname.value == "") this.displayname.ok = false;
@@ -134,8 +149,8 @@ export default{
       if (this.ram.value < 1 || this.ram.value > 16) this.ram.ok = false;
       if (this.ssd.value < 5 || this.ssd.value > 50) this.ssd.ok = false;
     },
-    processCreate: function() {
-      var response = VPSService.login(this.displayname.value, this.hostname.value, this.username.value, this.password.value,
+    processCreate: async function() {
+      var response = await VPSService.create(this.displayname.value, this.hostname.value, this.username.value, this.password.value,
         this.ssh.value, this.ram.value, this.cpu.value, this.ssd.value, this.os.value, this.reason);
       console.log(response)
       if (response.status == 200) {

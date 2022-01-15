@@ -43,8 +43,8 @@ export default {
     if (localStorage.getItem('authToken') == null) useRouter().push('/login');
   },
   methods: {
-    getVPSList: function() {
-      var request = VPSService.info();
+    getVPSList: async function() {
+      var request = await VPSService.info();
       console.log(request);
       if (request.status == 401) {
         alert("401 UNAUTHORIZED: Auth Token Invalid; Please log in again");
@@ -107,9 +107,13 @@ export default {
   },
   data() {
     return {
-      vm_list: [{"id" : 10000, "display_name" : "Aomori", "creation_time" : "December 15 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "debian", "status": true, "ipv4": "192.168.0.69"},
-      {"id" : 20000, "display_name" : "Sapporo", "creation_time" : "December 5 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "arch", "status": false, "ipv4": "192.168.0.70"}],
-      //vm_list: getVPSList(),
+      /*
+      vm_list: [
+        {"id" : 10000, "display_name" : "Aomori", "creation_time" : "December 15 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "debian", "status": true, "ipv4": "192.168.0.69"},
+        {"id" : 20000, "display_name" : "Sapporo", "creation_time" : "December 5 2021", "ram" : 2, "cpu": 2, "disk": 5, os: "arch", "status": false, "ipv4": "192.168.0.70"}
+      ],
+      */
+      vm_list: this.getVPSList(),
       vm_selected: null
     }
   }

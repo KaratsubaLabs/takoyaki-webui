@@ -6,7 +6,7 @@ class AuthService {
 		let body = {email: email, password: password}
 		return axios.post(API_URL + "/login", body).then(resp => {
 			if (resp.data.token != null) {
-				localStorage.setItem('authToken', JSON.stringify({token: resp.data.token}));
+				localStorage.setItem('authToken', resp.data.token);
 			}
 			return resp;
 		})
@@ -16,7 +16,7 @@ class AuthService {
 		let body = {email: email, password: password}
 		return axios.post(API_URL + "/register", body).then(resp => {
 			if (resp.data.token != null) {
-				localStorage.setItem('authToken', JSON.stringify({token: resp.data.token}));
+				localStorage.setItem('authToken', resp.data.token);
 			}
 			return resp;
 		})
