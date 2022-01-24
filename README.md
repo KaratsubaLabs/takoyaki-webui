@@ -4,8 +4,8 @@ A delightfully minimalistic frontend for からつばLABS' **project takoyaki** 
 ## RUNNING FOR DEVELOPMENT
 
 ### Compiles and hot-reloads for development
+Install the correct node version
 
-First make sure we are using the right version of node:
 ```
 $ nvm install 14.17.6
 $ nvm use
@@ -16,15 +16,14 @@ Now run app:
 $ npm run serve
 ```
 
-### Build docker container
+## RUNNNING FOR PRODUCTION
+
+### Dockerized
 ```
 $ docker build -t takoyaki-frontend .
 $ docker run -p 8080:8080 takoyaki-frontend
 ```
-
-## RUNNNING FOR PRODUCTION
-
-### Compiles and minifies for production
+### Undockerized
 ```
 $ npm run build
 ```
