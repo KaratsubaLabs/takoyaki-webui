@@ -27,3 +27,10 @@ $ docker run -p 8080:8080 takoyaki-frontend
 ```
 $ npm run build
 ```
+
+## TODO
+
+- [ ] Add logout button
+- [ ] Make custom errors
+- [ ] Replace per-vps approval with service limits
+- [ ] Implement shared VM's (Requires backend changes so maybe use a seperate branch for this?)
