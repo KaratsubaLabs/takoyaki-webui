@@ -1,34 +1,23 @@
 # タコヤキ - Takoyaki Frontend
-A delightfully minimalistic frontend for からつばLABS' **project takoyaki** - the VPS platform
+A delightful frontend for からつばLABS' **project takoyaki** - the VPS platform
 
 ## RUNNING FOR DEVELOPMENT
 
 ### Compiles and hot-reloads for development
-Install the correct node version
 
 ```
-$ nvm install 14.17.6
-$ nvm use
-```
-
-Now run app:
-```
-$ npm run serve
+$ npm install
+$ npm run dev
 ```
 
 ## RUNNNING FOR PRODUCTION
 
-### Dockerized
-```
-$ docker build -t takoyaki-frontend .
-$ docker run -p 8080:8080 takoyaki-frontend
-```
-### Undockerized
+Build the frontend
 ```
 $ npm run build
 ```
 
-## TODO
+## TODO (outdated)
 
 - [ ] Add logout button
 - [ ] Make custom errors
