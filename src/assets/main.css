@@ -1,7 +1,12 @@
 @import './base.css';
 
-
-a {
+a, .link {
   text-decoration: none;
+  user-select: none;
+  cursor: pointer;
   color: var(--text-color);
+}
+
+.link:hover {
+  color: var(--accent-hover);
 }

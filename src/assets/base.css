@@ -9,19 +9,25 @@
 :root {
   --accent-primary: lightseagreen;
   --accent-hover: lightseagreen;
-  --light: #F0F0F0;
-  --dark: #2C3E50;
+  --light: #f7f7f6;
+  --light-alt: #817f87;
+  --dark: #2b2a33;
+  --dark-alt: #42414d;
 }
 
 :root {
   --text-color: var(--dark);
+  --text-color-alt: var(--dark-alt);
   --bg-color: var(--light);
+  --bg-color-alt: var(--light-alt);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --text-color: var(--light);
+    --text-color-alt: var(--light-alt);
     --bg-color: var(--dark);
+    --bg-color-alt: var(--dark-alt);
   }
 }
 
@@ -30,7 +36,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  width: 100vw;
   color: var(--text-color);
   background-color: var(--bg-color);
 }

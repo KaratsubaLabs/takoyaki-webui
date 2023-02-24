@@ -37,4 +37,11 @@ import { RouterLink, RouterView } from 'vue-router'
   }
 }
 
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
 </style>
