@@ -1,5 +1,5 @@
-# タコヤキ - Takoyaki Frontend
-A delightful frontend for からつばLABS' **project takoyaki** - the VPS platform
+# タコヤキ Takoyaki Web UI
+A VueJS frontend for からつばLABS' **takoyaki** VPS platform
 
 ## RUNNING FOR DEVELOPMENT
 
