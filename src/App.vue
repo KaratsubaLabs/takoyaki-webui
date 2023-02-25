@@ -28,6 +28,10 @@ import { RouterLink, RouterView } from 'vue-router'
     margin: 10px;
   }
 
+  .link:hover {
+    color: var(--light);
+  }
+
   p, a {
     margin: auto 3px;
   }

@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import RequestForm from '../views/RequestForm.vue'
-import Kongura from '../views/Kongura.vue'
+import Confirm from '../views/Confirm.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,8 +20,8 @@ const router = createRouter({
         component: Dashboard,
     },
     {
-        path: '/kongura',
-        component: Kongura,
+        path: '/confirm',
+        component: Confirm,
     },
     {
         path: '/request',

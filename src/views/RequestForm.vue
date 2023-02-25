@@ -154,7 +154,7 @@ export default{
         this.ssh.value, this.ram.value, this.cpu.value, this.ssd.value, this.os.value, this.reason);
       console.log(response)
       if (response.status == 200) {
-        this.$router.push('/kongura?data=create%20VPS');
+        this.$router.push('/confirm?data=create%20VPS');
       }
       else if (response.status == 400) alert("400 BAD REQUEST: Request contained invalid data; Please fix your form and try again");
       else if (response.status == 401) alert("401 UNAUTHORIZED: Please log in again");
