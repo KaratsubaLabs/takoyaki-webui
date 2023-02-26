@@ -9,25 +9,36 @@
 :root {
   --accent-primary: lightseagreen;
   --accent-hover: lightseagreen;
-  --light: #f7f7f6;
-  --light-alt: #817f87;
-  --dark: #2b2a33;
-  --dark-alt: #42414d;
+
+  --lightmode-light: #f5f5f5;
+  --lightmode-less-light: #e5e4e4;
+  --lightmode-dark: #42414d;
+  --lightmode-less-dark: #73727a;
+  --lightmode-text-disabled: #b4b3b5;
+
+  --darkmode-light: #f7f7f6;
+  --darkmode-less-light: #817f87;
+  --darkmode-dark: #2b2a33;
+  --darkmode-less-dark: #42414d;
 }
 
 :root {
-  --text-color: var(--dark);
-  --text-color-alt: var(--dark-alt);
-  --bg-color: var(--light);
-  --bg-color-alt: var(--light-alt);
+  --light: var(--lightmode-light);
+  --text-disabled: var(--lightmode-text-disabled);
+  --text-color: var(--lightmode-dark);
+  --text-color-alt: var(--lightmode-less-dark);
+  --bg-color: var(--lightmode-light);
+  --bg-color-alt: var(--lightmode-less-light);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-color: var(--light);
-    --text-color-alt: var(--light-alt);
-    --bg-color: var(--dark);
-    --bg-color-alt: var(--dark-alt);
+    --light: var(--darkmode-light);
+    --text-disabled: var(--darkmode-less-light);
+    --text-color: var(--darkmode-light);
+    --text-color-alt: var(--darkmode-less-light);
+    --bg-color: var(--darkmode-dark);
+    --bg-color-alt: var(--darkmode-less-dark);
   }
 }
 

@@ -168,7 +168,7 @@ export default {
     }
 
     button.disabled {
-      color: var(--text-color-alt);
+      color: var(--text-disabled);
       cursor: default;
     }
 

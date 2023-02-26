@@ -21,7 +21,6 @@ import { RouterLink, RouterView } from 'vue-router'
   width: 100%;
   display: flex;
   flex-direction: row;
-  color: var(--light);
   background-color: var(--accent-primary);
 
   .logo {
@@ -34,6 +33,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
   p, a {
     margin: auto 3px;
+    color: var(--light);
   }
 
   .spacer {
