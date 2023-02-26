@@ -133,9 +133,6 @@ export default{
       if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
       if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
 
-      console.debug("editok", editok)
-      console.debug("createok", createok)
-      console.debug("query id", this.$route.query.id)
       if (this.$route.query.id == undefined && createok) this.processCreate();
       else if (this.$route.query.id != undefined && editok) this.processEdit();
     },

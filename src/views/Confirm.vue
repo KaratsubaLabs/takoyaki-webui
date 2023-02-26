@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {useRouter} from 'vue-router'
 
 export default {
@@ -45,4 +45,5 @@ export default {
   .mediumtext.link {
     margin-top: 8%;
   }
+  
 </style>
