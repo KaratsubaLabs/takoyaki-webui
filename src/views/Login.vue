@@ -1,20 +1,28 @@
 <template>
   <div class="maincontent">
-    <p class="bigtext" v-if="this.$route.path == '/login'" v-on:click="this.horny++">おかえり</p>
-    <p class="bigtext" v-if="this.$route.path == '/signup'" v-on:click="this.horny++">ようこそ</p>
-    <div class="inputs">
+    <p class="bigtext jp" v-if="this.$route.path == '/login'" v-on:click="this.horny++">おかえり</p>
+    <p class="bigtext jp" v-if="this.$route.path == '/signup'" v-on:click="this.horny++">ようこそ</p>
+
+    <div class="input-container">
       <input class="email" v-model="email" placeholder="Email">
-      <br>
+    </div>
+
+    <div class="input-container">
       <input class="password" v-model="password" type="password" placeholder="Password">
       <button class="login_btn" v-on:click="logUp">
-        <font-awesome-icon icon="arrow-right" />
+        <font-awesome-icon icon="fa-solid fa-arrow-right" />
       </button>
-      <p v-if="this.$route.path == '/login'" class="forgotpassword link" v-on:click="processResetPassword">Forgot your password?</p>
     </div>
+    
+    <p v-if="this.$route.path == '/login'" class="forgotpassword link" v-on:click="processResetPassword">Forgot your password?</p>
   </div>
   <div class="bottomtext">
-    <p class="signup link" v-if="this.$route.path == '/login'" v-on:click="() => togglePages('/signup')">No Account? Sign Up</p>
-    <p class="signup link" v-if="this.$route.path == '/signup'" v-on:click="() => togglePages('/login')">Already Have an account? Log In</p>
+    <p v-if="this.$route.path == '/login'">
+      No account? <RouterLink class="link" to="/signup">Sign Up</RouterLink>
+    </p>
+    <p v-if="this.$route.path == '/signup'">
+      Already have an account? <RouterLink class="link" to="/login">Log In</RouterLink>
+    </p>
     <a v-if="horny>=10" class="horny link" href="https://myanimelist.net/anime/40750/Kaifuku_Jutsushi_no_Yarinaoshi" target="_blank">I'm Feeling Horny</a>
   </div>
 </template>
@@ -84,62 +92,77 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+
   .maincontent {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    width: 100%
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: -50px;
   }
+
   .bigtext {
     font-size: 100px;
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 30px;
     user-select: none;
     cursor: default;
   }
-  .email, .password {
-    font-size: 18px;
-    padding: 5px 10px 5px 10px;
-    border: 1px solid slategrey;
-    margin: 10px 0 10px 0;
-  }
-  .email:focus, .password:focus {
-    outline: none;
-    border: 1px solid lightseagreen;
-  }
-  .email {
+
+  .input-container {
+    display: flex;
+    flex-direction: row;
     width: 250px;
+    margin: 10px auto;
+
+    input {
+      font-size: 18px;
+      min-width: 0;
+      padding: 5px 10px;
+      outline: none;
+      border : 1px solid var(--bg-color-alt);
+      background-color: var(--bg-color-alt);
+      color: var(--text-color-alt);
+    }
+
+    input:focus {
+      border: 1px solid var(--accent-hover);
+    }
+
+    .email {
+      border-radius: 7px;
+    }
+
+    .password {
+      border-radius: 7px 0 0 7px;
+    }
   }
-  .password {
-    width: 217px;
-    border-right: 0px !important;
-  }
+
   .login_btn {
-    height: 33px;
-    width: 33px;
+    border-radius: 0 7px 7px 0;
+    min-height: 34px;
+    min-width: 34px;
     padding: 0px;
-    background: white;
-    border: 1px solid slategrey;
+    border : 1px solid var(--bg-color-alt);
+    background-color: var(--bg-color-alt);
     font-size: 18px;
-    color: #2c3e50;
+    color: var(--text-color-alt);
   }
+
+  .login_btn:hover {
+    border: 1px solid var(--accent-hover);
+    color: var(--accent-hover);
+  }
+
   .login_btn:active {
-    border: 1px solid lightseagreen;
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-hover);
   }
-  .link {
-    user-select: none;
-    cursor: default;
-  }
-  .link:active {
-    color: lightseagreen;
-  }
-  .signup, .horny {
-    display: inline;
-    margin: 0 10px 0 10px;
-  }
+
   .bottomtext {
     position: absolute;
     bottom: 20px;
     width: 100%;
   }
+
 </style>

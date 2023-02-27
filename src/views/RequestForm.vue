@@ -133,9 +133,6 @@ export default{
       if (this.displayname.ok && this.cpu.ok && this.ram.ok && this.ssd.ok) editok = true;
       if (this.hostname.ok && this.os.ok && this.username.ok && this.password.ok && editok) createok = true;
 
-      console.debug("editok", editok)
-      console.debug("createok", createok)
-      console.debug("query id", this.$route.query.id)
       if (this.$route.query.id == undefined && createok) this.processCreate();
       else if (this.$route.query.id != undefined && editok) this.processEdit();
     },
@@ -154,7 +151,7 @@ export default{
         this.ssh.value, this.ram.value, this.cpu.value, this.ssd.value, this.os.value, this.reason);
       console.log(response)
       if (response.status == 200) {
-        this.$router.push('/kongura?data=create%20VPS');
+        this.$router.push('/confirm?data=create%20VPS');
       }
       else if (response.status == 400) alert("400 BAD REQUEST: Request contained invalid data; Please fix your form and try again");
       else if (response.status == 401) alert("401 UNAUTHORIZED: Please log in again");
@@ -192,7 +189,15 @@ export default{
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+
+  .maincontent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: -50px;
+  }
+
   button {
     border: none;
     background: none;
@@ -212,17 +217,7 @@ export default{
     outline: none;
     border: 1px solid lightseagreen;
   }
-  .maincontent {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-55%);
-    max-height: calc(100vh - 150px);
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    z-index: -1;
-  }
+
   ::-webkit-scrollbar {
     display: none;
   }

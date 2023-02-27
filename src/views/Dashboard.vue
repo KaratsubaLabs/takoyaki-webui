@@ -1,11 +1,11 @@
 <template>
   <div class="toplinks">
     <p class="bigtext topitem">My Dashboard</p>
-    <button class="topitem"><router-link class="link" to="/request">Request New</router-link></button>
-    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="editSpecs">Edit Specs</button>
-    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="startStop">Start/Stop</button>
-    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="createSnapshot">Create Snapshot</button>
-    <button class="topitem" v-bind:class="{disabled:vm_selected==null}" v-on:click="deleteVPS">Delete</button>
+    <button class="topitem link"><router-link to="/request">Request New</router-link></button>
+    <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="editSpecs">Edit Specs</button>
+    <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="startStop">Start/Stop</button>
+    <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="createSnapshot">Create Snapshot</button>
+    <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="deleteVPS">Delete</button>
   </div>
   <div class="datatable">
     <table>
@@ -71,6 +71,8 @@ export default {
         if (response.status == 200) {
           this.vm_list[this.vm_selected].status = false;
           window.alert(this.vm_list[this.vm_selected].display_name + " was successfully stopped!");
+        } else {
+          window.alert("Failed to stop \"" + this.vm_list[this.vm_selected].display_name + "\"");
         }
       }
       else {
@@ -78,6 +80,8 @@ export default {
         if (response.status == 200) {
           this.vm_list[this.vm_selected].status = true;
           window.alert(this.vm_list[this.vm_selected].display_name + " was successfully started!");
+        } else {
+          window.alert("Failed to start \"" + this.vm_list[this.vm_selected].display_name + "\"");
         }
       }
       this.vm_selected = null;
@@ -85,7 +89,11 @@ export default {
     createSnapshot: function(e) {
       e.preventDefault();
       let response = VPSService.snapshot(this.vm_list[this.vm_selected].id);
-      if (response.status == 200) window.alert("Snapshop successfully created for " + this.vm_list[this.vm_selected].display_name + "!");
+      if (response.status == 200) {
+        window.alert("Snapshop successfully created for " + this.vm_list[this.vm_selected].display_name + "!");
+      } else {
+        window.alert("Failed to create snapshot for \"" + this.vm_list[this.vm_selected].display_name + "\"");
+      }
     },
     deleteVPS: function(e) {
       e.preventDefault();
@@ -95,6 +103,8 @@ export default {
         if (response.status == 200) {
           this.vm_list.splice(this.vm_selected, 1);
           window.alert(this.vm_list[this.vm_selected].display_name + " was successfully deleted!");
+        } else {
+          window.alert("Failed to delete \"" + this.vm_list[this.vm_selected].display_name + "\"");
         }
         this.vm_selected = null;
       }
@@ -120,55 +130,51 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  button {
-    border: none;
-    background: none;
-    color: #2c3e50;
+<style scoped lang="scss">
+
+  .datatable {
+    flex-grow: 1;
+
+    table {
+      border-collapse: collapse;
+      width: calc(100% - 44px);
+      margin: 12px 22px;
+    }
+
+    th {
+      padding: 5px 15px 5px 15px;
+      border-bottom: 2px solid var(--text-color-alt);
+    }
+
+    td {
+      padding: 5px 10px 5px 10px;
+      cursor: default;
+    }
+    
+    .dataentry.selected {
+      background: var(--bg-color-alt);
+      color: var(--accent-primary);
+    }
   }
-  button:active {
-    color: lightseagreen;
-  }
-  button.disabled {
-    color: silver;
-  }
-  table {
-    border-collapse: collapse;
-    width: calc(100% - 44px);
-    margin: 12px 22px;
-  }
-  th {
-    padding: 5px 15px 5px 15px;
-    border-bottom: 2px solid slategrey;
-  }
-  td {
-    padding: 5px 10px 5px 10px;
-    cursor: default;
-  }
-  .link {
-    cursor: default;
-    text-decoration: none;
-    color: inherit;
-  }
+
   .toplinks {
     height: auto;
     text-align: left;
     margin: 0 12px;
+
+    .topitem {
+      vertical-align: middle;
+      display: inline-flex;
+    }
+
+    button.topitem {
+      margin: 10px;
+    }
+    
+    .bigtext {
+      font-size: 40px;
+      margin: 10px 25px 10px 10px;
+    }
   }
-  .topitem {
-    margin: 10px 10px 10px 10px;
-    font-size: 18px;
-    vertical-align: middle;
-    display: inline-flex;
-    color: #2c3e50;
-  }
-  .bigtext {
-    font-size: 40px;
-    margin: 10px 25px 10px 10px;
-  }
-  .dataentry.selected {
-    background: #F0F0F0;
-    color: lightseagreen;
-  }
+
 </style>

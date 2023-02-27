@@ -1,49 +1,68 @@
+<script setup lang="ts">
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+
+const authToken = localStorage.getItem('authToken');
+
+function logout() {
+  localStorage.clear();
+  location.reload();
+}
+</script>
+
 <template>
   <div class="header">
-    <h2 class="logo headertext"><router-link class="link" to="/">タコヤキ</router-link></h2>
-    <p class="headertext marginfree">BY</p>
-    <a class="headertext link" href="https://github.com/KaratsubaLabs" target="_blank">からつばLABS</a>
+    <h2 class="logo jp"><router-link class="link" to="/">タコヤキ</router-link></h2>
+    <p>BY</p>
+    <a class="jp" href="https://karatsubalabs.com" target="_blank">からつばLABS</a>
+
+    <div class="spacer"></div>
+
+    <button class="link" v-if="authToken" v-on:click="logout">Log Out</button>
   </div>
   <div class="body"><router-view /></div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style scoped lang="scss">
+
 .header {
+  font-size: 18px;
   width: 100%;
-  text-align: left;
-  background-color: lightseagreen;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--accent-primary);
+
+  .logo {
+    margin: 10px;
+  }
+
+  .link:hover {
+    color: var(--light);
+  }
+
+  p, a {
+    margin: auto 3px;
+    color: var(--light);
+  }
+
+  button {
+    margin: auto 10px;
+    color :var(--light);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
 }
+
 .body {
-  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 }
-.logo {
-  color: #F0F0F0;
-  margin: 4px 8px !important;
-}
-.headertext {
-  margin: 0 6px 0 6px;
-  display: inline-flex;
-  vertical-align: middle;
-}
-a.headertext, p.headertext {
-  color: #EEEEEE;
-}
-.link {
-  cursor: default;
-  text-decoration: none;
-  color: inherit;
-}
-.link:active {
-  color: lightseagreen;
-}
-.marginfree {
-  margin-right: 0px;
-}
+
 </style>

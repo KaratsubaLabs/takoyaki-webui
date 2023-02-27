@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '/src/components/Login.vue'
-import Dashboard from '/src/components/Dashboard.vue'
-import Kongura from '/src/components/Kongura.vue'
-import RequestForm from '/src/components/RequestForm.vue'
+import Login from '../views/Login.vue'
+import Dashboard from '../views/Dashboard.vue'
+import RequestForm from '../views/RequestForm.vue'
+import Confirm from '../views/Confirm.vue'
 
-const routes = [
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
     {
         path: '/login',
         component: Login,
@@ -18,8 +20,8 @@ const routes = [
         component: Dashboard,
     },
     {
-        path: '/kongura',
-        component: Kongura,
+        path: '/confirm',
+        component: Confirm,
     },
     {
         path: '/request',
@@ -29,11 +31,7 @@ const routes = [
         path: '/:pathMatch(.*)*',
         redirect: '/login'
     }
-]
-
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  ]
 })
 
 export default router

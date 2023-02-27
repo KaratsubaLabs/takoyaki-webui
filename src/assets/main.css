@@ -1,0 +1,23 @@
+@import './base.css';
+
+a, .link {
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.link:hover {
+  color: var(--accent-hover);
+}
+
+button {
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+
+button.disabled {
+  color: var(--text-disabled);
+  cursor: default;
+}
