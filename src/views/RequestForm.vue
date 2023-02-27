@@ -189,7 +189,15 @@ export default{
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
+
+  .maincontent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: -50px;
+  }
+
   button {
     border: none;
     background: none;
@@ -209,17 +217,7 @@ export default{
     outline: none;
     border: 1px solid lightseagreen;
   }
-  .maincontent {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-55%);
-    max-height: calc(100vh - 150px);
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    z-index: -1;
-  }
+
   ::-webkit-scrollbar {
     display: none;
   }

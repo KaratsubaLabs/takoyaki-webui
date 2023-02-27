@@ -162,21 +162,13 @@ export default {
     text-align: left;
     margin: 0 12px;
 
-    button {
-      border: none;
-      background: none;
-    }
-
-    button.disabled {
-      color: var(--text-disabled);
-      cursor: default;
-    }
-
     .topitem {
-      margin: 10px 10px 10px 10px;
-      font-size: 18px;
       vertical-align: middle;
       display: inline-flex;
+    }
+
+    button.topitem {
+      margin: 10px;
     }
     
     .bigtext {

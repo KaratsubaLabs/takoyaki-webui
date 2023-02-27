@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+
+const authToken = localStorage.getItem('authToken');
+
+function logout() {
+  localStorage.clear();
+  location.reload();
+}
 </script>
 
 <template>
@@ -10,6 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div class="spacer"></div>
 
+    <button class="link" v-if="authToken" v-on:click="logout">Log Out</button>
   </div>
   <div class="body"><router-view /></div>
 </template>
@@ -34,6 +42,15 @@ import { RouterLink, RouterView } from 'vue-router'
   p, a {
     margin: auto 3px;
     color: var(--light);
+  }
+
+  button {
+    margin: auto 10px;
+    color :var(--light);
+  }
+
+  .hidden {
+    display: none;
   }
 
   .spacer {

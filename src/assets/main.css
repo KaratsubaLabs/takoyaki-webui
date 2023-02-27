@@ -10,3 +10,14 @@ a, .link {
 .link:hover {
   color: var(--accent-hover);
 }
+
+button {
+  border: none;
+  background: none;
+  font-size: 18px;
+}
+
+button.disabled {
+  color: var(--text-disabled);
+  cursor: default;
+}
