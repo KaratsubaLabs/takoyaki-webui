@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
+
+if (localStorage.getItem('authToken') == null) useRouter().push('/login');
 </script>
 
 <template>

@@ -1,6 +1,10 @@
+<script setup>
+
+</script>
+
 <template>
   <div class="toplinks">
-    <button class="topitem link"><router-link to="/request">Request New</router-link></button>
+    <button class="topitem link"><router-link to="/dashboard/edit">New Instance</router-link></button>
     <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="editSpecs">Edit Specs</button>
     <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="startStop">Start/Stop</button>
     <button class="topitem link" v-bind:class="{disabled:vm_selected==null}" v-on:click="createSnapshot">Create Snapshot</button>
@@ -39,7 +43,7 @@ import {useRouter} from 'vue-router'
 
 export default {
   setup() {
-    if (localStorage.getItem('authToken') == null) useRouter().push('/login');
+    //if (localStorage.getItem('authToken') == null) useRouter().push('/login');
   },
   methods: {
     getVPSList: async function() {
@@ -55,7 +59,7 @@ export default {
     },
     editSpecs: function(e) {
       e.preventDefault();
-      var url = "/request?id=" + this.vm_list[this.vm_selected].id +
+      var url = "/dashboard/edit?id=" + this.vm_list[this.vm_selected].id +
         "&display=" + this.vm_list[this.vm_selected].display_name +
         "&cpu=" + this.vm_list[this.vm_selected].cpu +
         "&ram=" + this.vm_list[this.vm_selected].ram +
